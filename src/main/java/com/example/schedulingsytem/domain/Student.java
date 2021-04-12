@@ -27,4 +27,12 @@ public class Student extends BaseEntityAudit {
   )
   private Set<Course> courses;
 
+  @Override
+  public String toString() {
+    return "Student{" +
+        "firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", courses=" + courses +
+        '}';
+  }
 }
