@@ -18,24 +18,22 @@
     <div class="starter-template">
         <h1>Create Course</h1>
         <form:form method="post" modelAttribute="course" action="/courses/create" cssClass="form">
-            <table>
-                <tr>
-                    <td>Code: </td>
-                    <td><form:input path="code"/></td>
-                </tr>
-                <tr>
-                    <td>Title: </td>
-                    <td><form:input path="title"/></td>
-                </tr>
-                <tr>
-                    <td>Description: </td>
-                    <td><form:input path="description"/></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><input type="submit" value="Create"/></td>
-                </tr>
-            </table>
+            <div class="form-group">
+                <label for="code">Code:</label>
+                <form:input path="code" class="form-control" placeholder="Code" />
+            </div>
+
+            <div class="form-group">
+                <label for="code">Title:</label>
+                <form:input path="title" class="form-control" placeholder="title" />
+            </div>
+
+            <div class="form-group">
+                <label for="code">Description:</label>
+                <form:textarea path="description" class="form-control" placeholder="description" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Create</button>
         </form:form>
 
         <br/>

@@ -35,7 +35,10 @@
                         </a>
                     </td>
                     <td>
-                        <a class="btn btn-primary" href="/students/delete/${student.id}" role="button">
+                        <a class="btn btn-primary"
+                           href="/students/delete/${student.id}"
+                           onclick="return confirm('Do you really want to delete?')"
+                           role="button">
                             Delete
                         </a>
                     </td>
