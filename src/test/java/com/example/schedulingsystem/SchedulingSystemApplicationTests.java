@@ -1,10 +1,10 @@
-package com.example.schedulingsytem;
+package com.example.schedulingsystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SchedulingSytemApplicationTests {
+class SchedulingSystemApplicationTests {
 
 	@Test
 	void contextLoads() {

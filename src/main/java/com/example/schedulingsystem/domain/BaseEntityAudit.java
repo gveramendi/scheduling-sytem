@@ -1,10 +1,9 @@
-package com.example.schedulingsytem.domain;
+package com.example.schedulingsystem.domain;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

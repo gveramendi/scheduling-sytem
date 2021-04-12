@@ -1,8 +1,8 @@
-package com.example.schedulingsytem.service;
+package com.example.schedulingsystem.service;
 
-import com.example.schedulingsytem.domain.Course;
-import com.example.schedulingsytem.exception.EntityFormatException;
-import com.example.schedulingsytem.repository.CourseRepository;
+import com.example.schedulingsystem.domain.Course;
+import com.example.schedulingsystem.exception.EntityFormatException;
+import com.example.schedulingsystem.repository.CourseRepository;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.AfterEach;

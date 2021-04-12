@@ -1,4 +1,4 @@
-package com.example.schedulingsytem.domain;
+package com.example.schedulingsystem.domain;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -8,12 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.experimental.FieldDefaults;
 
 @Getter
 @Setter

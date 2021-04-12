@@ -1,6 +1,6 @@
-package com.example.schedulingsytem.repository;
+package com.example.schedulingsystem.repository;
 
-import com.example.schedulingsytem.domain.Course;
+import com.example.schedulingsystem.domain.Course;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Pageable;

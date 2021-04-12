@@ -1,9 +1,9 @@
-package com.example.schedulingsytem.service;
+package com.example.schedulingsystem.service;
 
-import com.example.schedulingsytem.domain.Course;
-import com.example.schedulingsytem.exception.EntityFormatException;
-import com.example.schedulingsytem.exception.ServiceException;
-import com.example.schedulingsytem.repository.CourseRepository;
+import com.example.schedulingsystem.domain.Course;
+import com.example.schedulingsystem.exception.EntityFormatException;
+import com.example.schedulingsystem.exception.ServiceException;
+import com.example.schedulingsystem.repository.CourseRepository;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;

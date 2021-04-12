@@ -1,7 +1,7 @@
-package com.example.schedulingsytem.service;
+package com.example.schedulingsystem.service;
 
-import com.example.schedulingsytem.domain.BaseEntity;
-import com.example.schedulingsytem.exception.EntityFormatException;
+import com.example.schedulingsystem.domain.BaseEntity;
+import com.example.schedulingsystem.exception.EntityFormatException;
 import java.util.ArrayList;
 import java.util.Set;
 import javax.validation.ConstraintViolation;

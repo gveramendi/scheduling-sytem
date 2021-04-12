@@ -1,4 +1,4 @@
-package com.example.schedulingsytem.exception;
+package com.example.schedulingsystem.exception;
 
 public class ServiceException extends RuntimeException {
 

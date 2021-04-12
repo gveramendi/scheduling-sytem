@@ -1,4 +1,4 @@
-package com.example.schedulingsytem.domain;
+package com.example.schedulingsystem.domain;
 
 import java.util.Set;
 import javax.persistence.CascadeType;

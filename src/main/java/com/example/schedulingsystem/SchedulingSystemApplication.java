@@ -1,13 +1,13 @@
-package com.example.schedulingsytem;
+package com.example.schedulingsystem;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SchedulingSytemApplication {
+public class SchedulingSystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SchedulingSytemApplication.class, args);
+		SpringApplication.run(SchedulingSystemApplication.class, args);
 	}
 
 }
