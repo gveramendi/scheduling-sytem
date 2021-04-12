@@ -7,16 +7,23 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Entity
-@Table(name = "students")
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity(name = "students")
 public class Student extends BaseEntityAudit {
 
-  @Column(name = "first_name")
+  @NotNull
+  @Column(name = "first_name", nullable = false)
   private String firstName;
 
-  @Column(name = "last_name")
+  @NotNull
+  @Column(name = "last_name", nullable = false)
   private String lastName;
 
   @ManyToMany(cascade = { CascadeType.ALL })
@@ -26,6 +33,11 @@ public class Student extends BaseEntityAudit {
       inverseJoinColumns = { @JoinColumn(name = "course_id") }
   )
   private Set<Course> courses;
+
+  public Student(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
 
   @Override
   public String toString() {

@@ -53,7 +53,7 @@ public class CourseService extends BaseService {
     throw new EntityNotFoundException("Course with id: " + id + " does not exits.");
   }
 
-  public List<Course> getCourses(Boolean deleted, Pageable pageable) {
+  public List<Course> getAll(Boolean deleted, Pageable pageable) {
     return this.courseRepository.findAllByDeleted(deleted, pageable);
   }
 

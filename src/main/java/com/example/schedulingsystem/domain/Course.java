@@ -16,11 +16,11 @@ import lombok.Setter;
 public class Course extends BaseEntityAudit {
 
   @NotNull
-  @Column(name = "code", unique = true)
+  @Column(name = "code", unique = true, nullable = false)
   private String code;
 
   @NotNull
-  @Column(name = "title")
+  @Column(name = "title", nullable = false)
   private String title;
 
   @Column(name = "description")
