@@ -15,27 +15,27 @@
         <h1>Scheduling System</h1>
     </header>
     <div class="starter-template">
-        <h1>Courses List</h1>
+        <h1>Student List</h1>
         <table class="table table-striped table-hover table-condensed table-bordered">
             <tr>
                 <th>Id</th>
-                <th>Code</th>
-                <th>Title</th>
+                <th>First name</th>
+                <th>Last name</th>
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
-            <c:forEach var="course" items="${courses}">
+            <c:forEach var="student" items="${students}">
                 <tr>
-                    <td>${course.id}</td>
-                    <td>${course.code}</td>
-                    <td>${course.title}</td>
+                    <td>${student.id}</td>
+                    <td>${student.firstName}</td>
+                    <td>${student.lastName}</td>
                     <td>
-                        <a class="btn btn-primary" href="/courses/${course.id}" role="button">
+                        <a class="btn btn-primary" href="/students/${student.id}" role="button">
                             Edit
                         </a>
                     </td>
                     <td>
-                        <a class="btn btn-primary" href="/courses/delete/${course.id}" role="button">
+                        <a class="btn btn-primary" href="/students/delete/${student.id}" role="button">
                             Delete
                         </a>
                     </td>
@@ -44,7 +44,7 @@
         </table>
 
         <br/>
-        <a href="/courses/create">Create Course</a>
+        <a href="/students/create">Create Student</a>
     </div>
 
 </div>
