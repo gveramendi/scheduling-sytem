@@ -1,7 +1,9 @@
 package com.example.schedulingsystem.service;
 
+import com.example.schedulingsystem.domain.Course;
 import com.example.schedulingsystem.domain.Student;
 import com.example.schedulingsystem.exception.EntityFormatException;
+import com.example.schedulingsystem.repository.CourseRepository;
 import com.example.schedulingsystem.repository.StudentRepository;
 import java.util.List;
 import javax.persistence.EntityNotFoundException;
@@ -21,6 +23,12 @@ public class StudentServiceTest {
   @Autowired
   public StudentService studentService;
 
+  @Autowired
+  public CourseRepository courseRepository;
+
+  @Autowired
+  public CourseService courseService;
+
   @BeforeEach
   public void setUp() {
   }
@@ -28,6 +36,7 @@ public class StudentServiceTest {
   @AfterEach
   public void tearDown() {
     this.studentRepository.deleteAll();
+    this.courseRepository.deleteAll();
   }
 
   @Test
@@ -44,7 +53,7 @@ public class StudentServiceTest {
   public void createFailedStudentTest() {
     Exception exception = Assertions.assertThrows(EntityFormatException.class, () ->
         this.studentService.create(new Student(null, null)));
-    Assertions.assertEquals("Invalid format on entity lastName must not be null.",
+    Assertions.assertEquals("Invalid format on entity firstName must not be null.",
         exception.getMessage());
 
     exception = Assertions.assertThrows(EntityFormatException.class, () ->
@@ -113,12 +122,10 @@ public class StudentServiceTest {
   public void failedUpdateStudentTest() {
     Student createdStudent = this.studentService.create(new Student("Juan", "Perez"));
 
-    Exception exception = Assertions.assertThrows(EntityFormatException.class, () ->
+    Assertions.assertThrows(EntityFormatException.class, () ->
         this.studentService.update(createdStudent.getId(), new Student(null, null)));
-    Assertions.assertEquals("Invalid format on entity firstName must not be null.",
-        exception.getMessage());
 
-    exception = Assertions.assertThrows(EntityFormatException.class, () ->
+    Exception exception = Assertions.assertThrows(EntityFormatException.class, () ->
         this.studentService.update(createdStudent.getId(), new Student("Juan", null)));
     Assertions.assertEquals("Invalid format on entity lastName must not be null.",
         exception.getMessage());
@@ -145,5 +152,52 @@ public class StudentServiceTest {
     Exception exception = Assertions.assertThrows(EntityNotFoundException.class, () ->
         this.studentService.delete(1L));
     Assertions.assertEquals("Student with id: 1 does not exits.", exception.getMessage());
+  }
+
+  @Test
+  public void addCourseTest() {
+    Student createdStudent = this.studentService.create(new Student("Juan", "Perez"));
+    Course createdCourse = this.courseService.create(
+        new Course("CO-001", "Course One", "Course One description"));
+
+    Student updatedStudent = this.studentService.addCourse(
+        createdStudent.getId(), createdCourse.getId());
+
+    Assertions.assertEquals(1, updatedStudent.getCourses().size());
+    Assertions.assertTrue(updatedStudent.getCourses().contains(createdCourse));
+  }
+
+  @Test
+  public void failedAddCourseTest() {
+    Student createdStudent = this.studentService.create(new Student("Juan", "Perez"));
+    Course createdCourse = this.courseService.create(
+        new Course("CO-001", "Course One", "Course One description"));
+    this.studentService.addCourse(createdStudent.getId(), createdCourse.getId());
+
+    Assertions.assertThrows(EntityFormatException.class, () ->
+        this.studentService.addCourse(createdStudent.getId(), createdCourse.getId()));
+  }
+
+  @Test
+  public void removeCourseTest() {
+    Student createdStudent = this.studentService.create(new Student("Juan", "Perez"));
+    Course createdCourse = this.courseService.create(
+        new Course("CO-001", "Course One", "Course One description"));
+    this.studentService.addCourse(createdStudent.getId(), createdCourse.getId());
+
+    Student updatedStudent = this.studentService.removeCourse(
+        createdStudent.getId(), createdCourse.getId());
+
+    Assertions.assertEquals(0, updatedStudent.getCourses().size());
+  }
+
+  @Test
+  public void failedRemoveCourseTest() {
+    Student createdStudent = this.studentService.create(new Student("Juan", "Perez"));
+    Course createdCourse = this.courseService.create(
+        new Course("CO-001", "Course One", "Course One description"));
+
+    Assertions.assertThrows(EntityFormatException.class, () ->
+        this.studentService.removeCourse(createdStudent.getId(), createdCourse.getId()));
   }
 }

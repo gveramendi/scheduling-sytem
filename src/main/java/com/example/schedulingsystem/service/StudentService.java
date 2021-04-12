@@ -1,9 +1,13 @@
 package com.example.schedulingsystem.service;
 
+import com.example.schedulingsystem.domain.Course;
 import com.example.schedulingsystem.domain.Student;
 import com.example.schedulingsystem.exception.EntityFormatException;
 import com.example.schedulingsystem.exception.ServiceException;
 import com.example.schedulingsystem.repository.StudentRepository;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
@@ -18,8 +22,11 @@ public class StudentService extends BaseService {
 
   private final StudentRepository studentRepository;
 
-  public StudentService(StudentRepository studentRepository) {
+  private final CourseService courseService;
+
+  public StudentService(StudentRepository studentRepository, CourseService courseService) {
     this.studentRepository = studentRepository;
+    this.courseService = courseService;
   }
 
   public Student create(Student student) {
@@ -91,5 +98,64 @@ public class StudentService extends BaseService {
 
     log.info("Deleted student: " + deletedStudent);
     return deletedStudent;
+  }
+
+  public Student addCourse(Long studentId, Long courseId) {
+    Student student = this.get(studentId);
+    Course course = this.courseService.get(courseId);
+    this.loadCourse(student);
+
+    if (student.getCourses().contains(course)) {
+      throw new EntityFormatException(
+          "Course with id: " + course.getId() + " already belong to student with id: " + student.getId() + ".");
+    }
+
+    Student updatedStudent;
+    try {
+      student.addCourse(course);
+
+      updatedStudent = this.studentRepository.save(student);
+    } catch (DataIntegrityViolationException dive) {
+      String errorMessage = "Update student exception: " + dive.getMessage();
+      log.error(errorMessage);
+
+      throw new EntityFormatException(errorMessage);
+    }
+
+    log.info("Add course: " + course + " to student: " + updatedStudent);
+    return updatedStudent;
+  }
+
+  public Student removeCourse(Long studentId, Long courseId) {
+    Student student = this.get(studentId);
+    Course course = this.courseService.get(courseId);
+    this.loadCourse(student);
+
+    if (!student.getCourses().contains(course)) {
+      throw new EntityFormatException(
+          "Course with id: " + course.getId() + " does not belong to student with id: " + student.getId() + ".");
+    }
+
+    Student updatedStudent;
+    try {
+      student.removeCourse(course);
+
+      updatedStudent = this.studentRepository.save(student);
+    } catch (DataIntegrityViolationException dive) {
+      String errorMessage = "Update student exception: " + dive.getMessage();
+      log.error(errorMessage);
+
+      throw new EntityFormatException(errorMessage);
+    }
+
+    log.info("Remove course: " + course + " to student: " + updatedStudent);
+    return updatedStudent;
+  }
+
+  private void loadCourse(Student student) {
+    List<Student> students = new ArrayList<>(Collections.singletonList(student));
+    List<Course> courses = this.courseService.getCourses(students, false);
+
+    student.setCourses(new HashSet<>(courses));
   }
 }

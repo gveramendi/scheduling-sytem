@@ -1,6 +1,7 @@
 package com.example.schedulingsystem.service;
 
 import com.example.schedulingsystem.domain.Course;
+import com.example.schedulingsystem.domain.Student;
 import com.example.schedulingsystem.exception.EntityFormatException;
 import com.example.schedulingsystem.exception.ServiceException;
 import com.example.schedulingsystem.repository.CourseRepository;
@@ -55,6 +56,10 @@ public class CourseService extends BaseService {
 
   public List<Course> getAll(Boolean deleted, Pageable pageable) {
     return this.courseRepository.findAllByDeleted(deleted, pageable);
+  }
+
+  public List<Course> getCourses(List<Student> students, boolean deleted) {
+    return this.courseRepository.findAllByStudentsInAndDeleted(students, deleted);
   }
 
   public Course update(Long courseId, Course modifiedCourse) {

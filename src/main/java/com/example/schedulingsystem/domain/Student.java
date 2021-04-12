@@ -1,5 +1,6 @@
 package com.example.schedulingsystem.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,6 +38,22 @@ public class Student extends BaseEntityAudit {
   public Student(String firstName, String lastName) {
     this.firstName = firstName;
     this.lastName = lastName;
+  }
+
+  public void addCourse(Course course) {
+    if(this.getCourses() == null){
+      this.courses = new HashSet<>();
+    }
+
+    this.courses.add(course);
+  }
+
+  public void removeCourse(Course course) {
+    if(this.getCourses() == null){
+      return;
+    }
+
+    this.courses.remove(course);
   }
 
   @Override
