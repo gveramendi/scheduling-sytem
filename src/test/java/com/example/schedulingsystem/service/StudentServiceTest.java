@@ -86,18 +86,18 @@ public class StudentServiceTest {
 
   @Test
   public void getStudentsTest() {
-    Assertions.assertEquals(0, this.studentService.getAll(false, null).size());
+    Assertions.assertEquals(0, this.studentService.getAll(false).size());
 
     for (int i = 0; i < 10; i++) {
       Student student = new Student("firstName " + i, "lastName " + i);
       this.studentService.create(student);
     }
 
-    List<Student> studentList = this.studentService.getAll(false, null);
+    List<Student> studentList = this.studentService.getAll(false);
     Assertions.assertEquals(10, studentList.size());
 
     int index = 0;
-    for (Student student: this.studentService.getAll(false, null)) {
+    for (Student student: this.studentService.getAll(false)) {
       Assertions.assertTrue(student.getId() > 0);
       Assertions.assertEquals("firstName " + index, student.getFirstName());
       Assertions.assertEquals("lastName " + index, student.getLastName());

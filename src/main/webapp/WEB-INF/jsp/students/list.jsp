@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="en">
@@ -16,6 +17,16 @@
     </header>
     <div class="starter-template">
         <h1>Student List</h1>
+
+        <div class="input-group">
+            <form:form method="get" action="/students/search" class="input-group">
+                <input type="search" class="form-control" placeholder="Search"
+                       name="keyword" aria-label="Search" aria-describedby="search-addon" />
+                <button type="submit" class="btn btn-outline-primary">Search</button>
+            </form:form>
+        </div>
+        <br/>
+
         <table class="table table-striped table-hover table-condensed table-bordered">
             <tr>
                 <th>Id</th>

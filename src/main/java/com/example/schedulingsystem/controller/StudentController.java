@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -37,7 +38,19 @@ public class StudentController {
   @RequestMapping(value="/list", method= RequestMethod.GET)
   public ModelAndView students() {
     ModelAndView modelAndView = new ModelAndView("/students/list");
-    modelAndView.addObject("students", this.studentService.getAll(false, null));
+    modelAndView.addObject("students", this.studentService.getAll(false));
+
+    return modelAndView;
+  }
+
+  @RequestMapping(value="/search", method= RequestMethod.GET)
+  public ModelAndView search(@RequestParam("keyword") String keyword) {
+    ModelAndView modelAndView = new ModelAndView("/students/list");
+    if (keyword != null && !keyword.isBlank()) {
+      modelAndView.addObject("students", this.studentService.search(keyword));
+    } else {
+      modelAndView.addObject("students", this.studentService.getAll(false));
+    }
 
     return modelAndView;
   }

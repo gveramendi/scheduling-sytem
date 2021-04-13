@@ -91,18 +91,18 @@ public class CourseServiceTest {
 
   @Test
   public void getCoursesTest() {
-    Assertions.assertEquals(0, this.courseService.getAll(false, null).size());
+    Assertions.assertEquals(0, this.courseService.getAll(false).size());
 
     for (int i = 0; i < 10; i++) {
       Course course = new Course("CO-00" + i, "Course " + i, "Course description " + i);
       this.courseService.create(course);
     }
 
-    List<Course> courseList = this.courseService.getAll(false, null);
+    List<Course> courseList = this.courseService.getAll(false);
     Assertions.assertEquals(10, courseList.size());
 
     int index = 0;
-    for (Course course: this.courseService.getAll(false, null)) {
+    for (Course course: this.courseService.getAll(false)) {
       Assertions.assertTrue(course.getId() > 0);
       Assertions.assertEquals("CO-00" + index, course.getCode());
       Assertions.assertEquals("Course " + index, course.getTitle());
