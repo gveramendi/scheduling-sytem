@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,10 +21,12 @@ import lombok.Setter;
 public class Student extends BaseEntityAudit {
 
   @NotNull
+  @NotEmpty
   @Column(name = "first_name", nullable = false)
   private String firstName;
 
   @NotNull
+  @NotEmpty
   @Column(name = "last_name", nullable = false)
   private String lastName;
 

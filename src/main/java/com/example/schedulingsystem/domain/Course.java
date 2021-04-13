@@ -4,6 +4,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,10 +17,12 @@ import lombok.Setter;
 public class Course extends BaseEntityAudit {
 
   @NotNull
+  @NotEmpty
   @Column(name = "code", unique = true, nullable = false)
   private String code;
 
   @NotNull
+  @NotEmpty
   @Column(name = "title", nullable = false)
   private String title;
 
