@@ -16,46 +16,48 @@
         <h1>Scheduling System</h1>
     </header>
     <div class="starter-template">
-        <h1>Student List</h1>
+        <h1>Students</h1>
 
-        <div class="input-group">
-            <form:form method="get" action="/students/search" class="input-group">
-                <input type="search" class="form-control" placeholder="Search"
-                       name="keyword" aria-label="Search" aria-describedby="search-addon" />
-                <button type="submit" class="btn btn-outline-primary">Search</button>
-            </form:form>
-        </div>
-        <br/>
+        <c:if test="${students.size() > 0}">
+            <div class="input-group">
+                <form:form method="get" action="/students/search" class="input-group">
+                    <input type="search" class="form-control" placeholder="Search"
+                           name="keyword" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="submit" class="btn btn-outline-primary">Search</button>
+                </form:form>
+            </div>
+            <br/>
 
-        <table class="table table-striped table-hover table-condensed table-bordered">
-            <tr>
-                <th>Id</th>
-                <th>First name</th>
-                <th>Last name</th>
-                <th>Update</th>
-                <th>Delete</th>
-            </tr>
-            <c:forEach var="student" items="${students}">
+            <table class="table table-striped table-hover table-condensed table-bordered">
                 <tr>
-                    <td>${student.id}</td>
-                    <td>${student.firstName}</td>
-                    <td>${student.lastName}</td>
-                    <td>
-                        <a class="btn btn-primary" href="/students/${student.id}" role="button">
-                            Edit
-                        </a>
-                    </td>
-                    <td>
-                        <a class="btn btn-primary"
-                           href="/students/delete/${student.id}"
-                           onclick="return confirm('Do you really want to delete?')"
-                           role="button">
-                            Delete
-                        </a>
-                    </td>
+                    <th>Id</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Update</th>
+                    <th>Delete</th>
                 </tr>
-            </c:forEach>
-        </table>
+                <c:forEach var="student" items="${students}">
+                    <tr>
+                        <td>${student.id}</td>
+                        <td>${student.firstName}</td>
+                        <td>${student.lastName}</td>
+                        <td>
+                            <a class="btn btn-success" href="/students/${student.id}" role="button">
+                                Edit
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger"
+                               href="/students/delete/${student.id}"
+                               onclick="return confirm('Do you really want to delete?')"
+                               role="button">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
 
         <br/>
         <a href="/students/create">Create Student</a>

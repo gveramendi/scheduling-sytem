@@ -64,7 +64,6 @@ public class Student extends BaseEntityAudit {
     return "Student{" +
         "firstName='" + firstName + '\'' +
         ", lastName='" + lastName + '\'' +
-        ", courses=" + courses +
         '}';
   }
 }

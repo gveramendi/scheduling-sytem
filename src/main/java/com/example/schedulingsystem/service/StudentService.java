@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class StudentService extends BaseService {
 
   private final CourseService courseService;
 
-  public StudentService(StudentRepository studentRepository, CourseService courseService) {
+  public StudentService(StudentRepository studentRepository, @Lazy CourseService courseService) {
     this.studentRepository = studentRepository;
     this.courseService = courseService;
   }
@@ -58,6 +59,13 @@ public class StudentService extends BaseService {
 
   public List<Student> getAll(Boolean deleted) {
     return this.studentRepository.findAllByDeleted(deleted);
+  }
+
+  public List<Student> getAll(Long courseId, boolean deleted) {
+    Course course = this.courseService.get(courseId);
+    List<Course> courses = new ArrayList<>(Collections.singletonList(course));
+
+    return this.studentRepository.findAllByCoursesInAndDeleted(courses, deleted);
   }
 
   public List<Student> search(String keyword) {
@@ -157,8 +165,7 @@ public class StudentService extends BaseService {
   }
 
   private void loadCourse(Student student) {
-    List<Student> students = new ArrayList<>(Collections.singletonList(student));
-    List<Course> courses = this.courseService.getCourses(students, false);
+    List<Course> courses = this.courseService.getAll(student.getId(), false);
 
     student.setCourses(new HashSet<>(courses));
   }

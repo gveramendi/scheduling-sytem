@@ -1,6 +1,8 @@
 package com.example.schedulingsystem.controller;
 
+import com.example.schedulingsystem.domain.Course;
 import com.example.schedulingsystem.domain.Student;
+import com.example.schedulingsystem.service.CourseService;
 import com.example.schedulingsystem.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,8 +18,11 @@ public class StudentController {
 
   public final StudentService studentService;
 
-  public StudentController(StudentService studentService) {
+  private final CourseService courseService;
+
+  public StudentController(StudentService studentService, CourseService courseService) {
     this.studentService = studentService;
+    this.courseService = courseService;
   }
 
   @RequestMapping(value="/create", method= RequestMethod.GET)
@@ -59,6 +64,10 @@ public class StudentController {
   public ModelAndView edit(@PathVariable long id) {
     ModelAndView model = new ModelAndView("/students/update");
     model.addObject("student", this.studentService.get(id));
+    model.addObject("courses", this.courseService.getAll(id, false));
+
+    model.addObject("selectedCourse", new Course());
+    model.addObject("courseList", this.courseService.getAll(false));
 
     return model;
   }
@@ -77,14 +86,14 @@ public class StudentController {
     return new ModelAndView("redirect:/students/list");
   }
 
-  @RequestMapping(value="/add_course/{studentId}/{courseId}", method=RequestMethod.POST)
-  public ModelAndView addCourse(@PathVariable long studentId, @PathVariable long courseId) {
-    this.studentService.addCourse(studentId, courseId);
+  @RequestMapping(value="/add_course/{studentId}", method=RequestMethod.GET)
+  public ModelAndView addCourse(@PathVariable long studentId, Course course) {
+    this.studentService.addCourse(studentId, course.getId());
 
     return new ModelAndView("redirect:/students/" + studentId);
   }
 
-  @RequestMapping(value="/remove_course/{studentId}/{courseId}", method=RequestMethod.POST)
+  @RequestMapping(value="/remove_course/{studentId}/{courseId}", method=RequestMethod.GET)
   public ModelAndView removeCourse(@PathVariable long studentId, @PathVariable long courseId) {
     this.studentService.removeCourse(studentId, courseId);
 

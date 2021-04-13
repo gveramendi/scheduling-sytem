@@ -6,10 +6,13 @@ import com.example.schedulingsystem.exception.EntityFormatException;
 import com.example.schedulingsystem.exception.ServiceException;
 import com.example.schedulingsystem.repository.CourseRepository;
 import com.example.schedulingsystem.specification.CourseSearchSpecification;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import javax.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +22,11 @@ public class CourseService extends BaseService {
 
   private final CourseRepository courseRepository;
 
-  public CourseService(CourseRepository courseRepository) {
+  private final StudentService studentService;
+
+  public CourseService(CourseRepository courseRepository, @Lazy StudentService studentService) {
     this.courseRepository = courseRepository;
+    this.studentService = studentService;
   }
 
   public Course create(Course course) {
@@ -62,7 +68,10 @@ public class CourseService extends BaseService {
     return this.courseRepository.findAll(new CourseSearchSpecification(keyword));
   }
 
-  public List<Course> getCourses(List<Student> students, boolean deleted) {
+  public List<Course> getAll(Long studentId, boolean deleted) {
+    Student student = this.studentService.get(studentId);
+    List<Student> students = new ArrayList<>(Collections.singletonList(student));
+
     return this.courseRepository.findAllByStudentsInAndDeleted(students, deleted);
   }
 

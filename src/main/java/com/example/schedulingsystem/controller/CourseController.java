@@ -2,6 +2,7 @@ package com.example.schedulingsystem.controller;
 
 import com.example.schedulingsystem.domain.Course;
 import com.example.schedulingsystem.service.CourseService;
+import com.example.schedulingsystem.service.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +17,11 @@ public class CourseController {
 
   private final CourseService courseService;
 
-  public CourseController(CourseService courseService) {
+  private final StudentService studentService;
+
+  public CourseController(CourseService courseService, StudentService studentService) {
     this.courseService = courseService;
+    this.studentService = studentService;
   }
 
   @RequestMapping(value="/create", method=RequestMethod.GET)
@@ -59,6 +63,7 @@ public class CourseController {
   public ModelAndView edit(@PathVariable long id) {
     ModelAndView model = new ModelAndView("/courses/update");
     model.addObject("course", this.courseService.get(id));
+    model.addObject("students", this.studentService.getAll(id, false));
 
     return model;
   }

@@ -16,45 +16,47 @@
         <h1>Scheduling System</h1>
     </header>
     <div class="starter-template">
-        <h1>Courses List</h1>
+        <h1>Courses</h1>
 
-        <div class="input-group">
-            <form:form method="get" action="/courses/search" class="input-group">
-                <input type="search" class="form-control" placeholder="Search"
-                       name="keyword" aria-label="Search" aria-describedby="search-addon" />
-                <button type="submit" class="btn btn-outline-primary">Search</button>
-            </form:form>
-        </div>
-        <br/>
+        <c:if test="${courses.size() > 0}">
+            <div class="input-group">
+                <form:form method="get" action="/courses/search" class="input-group">
+                    <input type="search" class="form-control" placeholder="Search"
+                           name="keyword" aria-label="Search" aria-describedby="search-addon" />
+                    <button type="submit" class="btn btn-outline-primary">Search</button>
+                </form:form>
+            </div>
+            <br/>
 
-        <table class="table table-striped table-hover table-condensed table-bordered">
-            <tr>
-                <th>Id</th>
-                <th>Code</th>
-                <th>Title</th>
-                <th>Update</th>
-                <th>Delete</th>
-            </tr>
-            <c:forEach var="course" items="${courses}">
+            <table class="table table-striped table-hover table-condensed table-bordered">
                 <tr>
-                    <td>${course.id}</td>
-                    <td>${course.code}</td>
-                    <td>${course.title}</td>
-                    <td>
-                        <a class="btn btn-primary" href="/courses/${course.id}" role="button">
-                            Edit
-                        </a>
-                    </td>
-                    <td>
-                        <a class="btn btn-primary" href="/courses/delete/${course.id}"
-                           onclick="return confirm('Do you really want to delete?')"
-                           role="button">
-                            Delete
-                        </a>
-                    </td>
+                    <th>Id</th>
+                    <th>Code</th>
+                    <th>Title</th>
+                    <th>Update</th>
+                    <th>Delete</th>
                 </tr>
-            </c:forEach>
-        </table>
+                <c:forEach var="course" items="${courses}">
+                    <tr>
+                        <td>${course.id}</td>
+                        <td>${course.code}</td>
+                        <td>${course.title}</td>
+                        <td>
+                            <a class="btn btn-success" href="/courses/${course.id}" role="button">
+                                Edit
+                            </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" href="/courses/delete/${course.id}"
+                               onclick="return confirm('Do you really want to delete?')"
+                               role="button">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
 
         <br/>
         <a href="/courses/create">Create Course</a>

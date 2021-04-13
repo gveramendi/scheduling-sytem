@@ -34,10 +34,8 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Create</button>
+            <a class="btn btn-secondary" href="/courses/list">Cancel</a>
         </form:form>
-
-        <br/>
-        <a href="/courses/list">List Courses</a>
     </div>
 
 </div>

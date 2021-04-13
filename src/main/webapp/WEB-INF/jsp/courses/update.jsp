@@ -34,10 +34,26 @@
             </div>
 
             <button type="submit" class="btn btn-primary">Update</button>
+            <a class="btn btn-secondary" href="/courses/list">Cancel</a>
         </form:form>
 
-        <br/>
-        <a href="/courses/list">List Courses</a>
+        <c:if test="${students.size() > 0}">
+            <br/>
+            <table class="table table-striped table-hover table-condensed table-bordered">
+                <tr>
+                    <th>Id</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                </tr>
+                <c:forEach var="student" items="${students}">
+                    <tr>
+                        <td>${student.id}</td>
+                        <td>${student.firstName}</td>
+                        <td>${student.lastName}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </c:if>
     </div>
 
 </div>
